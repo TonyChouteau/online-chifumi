@@ -107,6 +107,9 @@ function listenToServer() {
 	socket.on("error", (data) => {
 		console.log("ERROR :", data);
 	})
+	socket.on("update", (data) => {
+		updateRoomData(data);
+	});
 }
 
 function fadeOutMenu(data) {
@@ -123,6 +126,8 @@ function displayRoom(room) {
 }
 
 function updateRoomData(room) {
+	console.log(room)
+
 	let playerList = "";
 	for (let id in room.players) {
 		playerList += "<li>"+ (room.players[id] ? room.players[id] : "-") +"</li>";
@@ -133,8 +138,8 @@ function updateRoomData(room) {
 	$playerList.html(playerList);
 
 	let spectatorList = "";
-	for (let spectator in room.spectators) {
-		spectatorList += "<li>"+ room.spectator[id] +"</li>";
+	for (let id in room.spectators) {
+		spectatorList += "<li>"+ room.spectators[id] +"</li>";
 	}
 	$spectatorList.html(spectatorList);
 }
